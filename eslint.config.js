@@ -18,7 +18,6 @@ export default [
       'no-multiple-empty-lines': ['error', { 'max': 1 }],
       'no-trailing-spaces': 'error',
       'indent': ['error', 2],
-      'semi': ['error', 'always'],
       'quotes': ['error', 'single'],
       'key-spacing': ['error', { 'beforeColon': false, 'afterColon': true }],
       'comma-spacing': ['error', { 'before': false, 'after': true }],

@@ -10,7 +10,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "vue": "^2.7.16"
+    "@vue/composition-api": "^1.7.2",
+    "pinia": "^2.1.7",
+    "sass": "1.30.0",
+    "vue": "^2.7.16",
+    "vue-router": "^3.6.5"
   },
   "devDependencies": {
     "@eslint/js": "^9.23.0",
@@ -28,6 +32,7 @@
     "lint-staged": "^8.2.1",
     "typescript": "^5.3.3",
     "typescript-eslint": "^8.29.0",
+    "unplugin-auto-import": "^0.17.5",
     "unplugin-vue-define-options": "^1.4.1",
     "vite": "^5.0.11",
     "vite-plugin-require-transform": "^1.0.21",
