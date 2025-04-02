@@ -1,0 +1,47 @@
+{
+  "name": "vite-project",
+  "private": true,
+  "version": "0.0.1",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc -b && vite build",
+    "lint": "eslint . --fix",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "vue": "^2.7.16"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.23.0",
+    "@types/jsdom": "^21.1.6",
+    "@types/node": "^18.19.0",
+    "@typescript-eslint/eslint-plugin": "^8.29.0",
+    "@typescript-eslint/parser": "^8.29.0",
+    "@vitejs/plugin-vue2": "^2.3.1",
+    "@vitejs/plugin-vue2-jsx": "^1.1.1",
+    "@vue/eslint-config-prettier": "^8.0.0",
+    "eslint": "^8.57.1",
+    "eslint-plugin-vue": "^10.0.0",
+    "fast-glob": "^3.3.2",
+    "globals": "^16.0.0",
+    "lint-staged": "^8.2.1",
+    "typescript": "^5.3.3",
+    "typescript-eslint": "^8.29.0",
+    "unplugin-vue-define-options": "^1.4.1",
+    "vite": "^5.0.11",
+    "vite-plugin-require-transform": "^1.0.21",
+    "vite-plugin-svg-icons": "^2.0.1",
+    "vue-eslint-parser": "^10.1.1"
+  },
+  "lint-staged": {
+    "*.js": [
+      "npm run lint --",
+      "git add"
+    ],
+    "*.vue": [
+      "npm run lint --",
+      "git add"
+    ]
+  }
+}
