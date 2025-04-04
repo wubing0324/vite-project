@@ -1,9 +1,11 @@
 <template>
   <div class="bar-container">
     <div class="center-container animate__animated animate__fadeInUp" :class="{'notEmpty': centerButtons.length > 0 && centerVisible}">
-      <div v-show="centerVisible" v-for="button in centerButtons" :key="button.name"
-        class="center-button__bg"
-        @click.stop="centerButtonClick(button)"
+      <div v-show="centerVisible"
+           v-for="button in centerButtons"
+           :key="button.name"
+           class="center-button__bg"
+           @click.stop="centerButtonClick(button)"
       >
         <div class="center-button__title">{{ button.name }}</div>
       </div>

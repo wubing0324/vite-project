@@ -17,8 +17,6 @@ export default [
     rules: {
       'no-multiple-empty-lines': ['error', { 'max': 1 }],
       'no-trailing-spaces': 'error',
-      'indent': ['error', 2],
-      'quotes': ['error', 'single'],
       'key-spacing': ['error', { 'beforeColon': false, 'afterColon': true }],
       'comma-spacing': ['error', { 'before': false, 'after': true }],
       'space-infix-ops': 'error',

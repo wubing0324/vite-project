@@ -45,11 +45,11 @@ const handleMenuClick = (menu) => {
   height: 80px;
   background: linear-gradient(180deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.6) 100%);
   backdrop-filter: blur(10px);
-  
+
   .menu-container {
     display: flex;
     gap: 40px;
-    
+
     .menu-item {
       font-size: 24px;
       color: #ffffff;
@@ -57,11 +57,11 @@ const handleMenuClick = (menu) => {
       padding: 8px 16px;
       border-radius: 4px;
       transition: all 0.3s ease;
-      
+
       &:hover {
         background: rgba(255,255,255,0.1);
       }
-      
+
       &.active {
         color: #00ffff;
         background: rgba(0,255,255,0.1);

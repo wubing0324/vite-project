@@ -1,10 +1,10 @@
 <template>
-    <div class="e-left">
-    </div>
-  </template>
+  <div class="e-left">
+  </div>
+</template>
 
-  <script setup lang="ts">
-  </script>
+<script setup lang="ts">
+</script>
 
   <style lang="scss" scoped>
   .e-left {
