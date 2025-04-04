@@ -6,20 +6,24 @@ import DefineOptions from 'unplugin-vue-define-options/vite'
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 import requireTransform from 'vite-plugin-require-transform'
 import { codeInspectorPlugin } from 'code-inspector-plugin'
-// import AutoImport from 'unplugin-auto-import/vite'
+import AutoImport from 'unplugin-auto-import/vite'
+import Components from 'unplugin-vue-components/vite'
 import path from 'path'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [
-    // AutoImport({
-    //   imports: [
-    //     'vue',
-    //     'vue-router/composables',
-    //     {
-    //       '@/stores': [['default', 'useStore']],
-    //     }
-    //   ],
-    // }),
+    AutoImport({
+      imports: [
+        'vue',
+        'vue-router/composables',
+        {
+          '@/stores': [['default', 'useStore']]
+        }
+      ]
+    }),
+    Components({
+      globs: ['src/components/page-bottom/PageBottom.vue']
+    }),
     requireTransform({ fileRegex: /maptalks.gmvi|.ts$|.tsx$/ }),
     vue2(),
     vue2Jsx(),

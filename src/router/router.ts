@@ -8,7 +8,6 @@ import top2 from '@/pages/top2/route'
 import top3 from '@/pages/top3/route'
 import top1Sub1 from '@/pages/top1-sub1/route'
 import top1Sub2 from '@/pages/top1-sub2/route'
-
 Vue.use(VueRouter)
 
 /** 运行监测 */
@@ -48,10 +47,17 @@ export const top: RouteConfig = {
 export default new VueRouter({
   mode: 'history',
   base: import.meta.env.BASE_URL,
-  routes: [
-    monitor,
-    emegc,
-    top,
-    { path: '/', name: 'empty', redirect: monitor.path },
-  ]
+  scrollBehavior(to, from, savedPosition) {
+    return new Promise((resolve) => {
+      if (savedPosition) {
+        resolve(savedPosition)
+      } else {
+        if (from.meta.saveSrollTop) {
+          const top: number = document.documentElement.scrollTop || document.body.scrollTop
+          resolve({ x: 0, y: top })
+        }
+      }
+    })
+  },
+  routes: [monitor, emegc, top, { path: '/', name: 'empty', redirect: monitor.path }]
 })
