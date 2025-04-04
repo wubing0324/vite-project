@@ -6,8 +6,7 @@
         :key="menu.name"
         class="menu-item"
         :class="{ active: currentRoute.path.startsWith(menu.path) }"
-        @click="handleMenuClick(menu)"
-      >
+        @click="handleMenuClick(menu)">
         {{ menu.meta?.title }}
       </div>
     </div>
@@ -23,12 +22,8 @@ const router = useRouter()
 const currentRoute = useRoute()
 
 const rootMenus = computed(() => {
-  const allRoutes = [
-    ...(monitor.children || []),
-    ...(emegc.children || []),
-    ...(top.children || [])
-  ]
-  return allRoutes.filter(route => route.meta?.root === true)
+  const allRoutes = [...(monitor.children || [])]
+  return allRoutes.filter((route) => route.meta?.root === true)
 })
 
 const handleMenuClick = (menu) => {
@@ -43,7 +38,7 @@ const handleMenuClick = (menu) => {
   align-items: center;
   width: 100%;
   height: 80px;
-  background: linear-gradient(180deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.6) 100%);
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.6) 100%);
   backdrop-filter: blur(10px);
 
   .menu-container {
@@ -59,12 +54,12 @@ const handleMenuClick = (menu) => {
       transition: all 0.3s ease;
 
       &:hover {
-        background: rgba(255,255,255,0.1);
+        background: rgba(255, 255, 255, 0.1);
       }
 
       &.active {
         color: #00ffff;
-        background: rgba(0,255,255,0.1);
+        background: rgba(0, 255, 255, 0.1);
       }
     }
   }

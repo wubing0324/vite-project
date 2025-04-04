@@ -1,6 +1,12 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import type { RouteConfig } from 'vue-router'
+import type {
+  RouteConfig,
+  type Router,
+  createRouter,
+  type RouteRecordRaw,
+  type RouteComponent
+} from 'vue-router'
 import monitorOverview from '@/pages/monitor-overview/route'
 import emegcSub1 from '@/pages/emegc-sub1/route'
 import top1 from '@/pages/top1/route'
@@ -10,13 +16,24 @@ import top1Sub1 from '@/pages/top1-sub1/route'
 import top1Sub2 from '@/pages/top1-sub2/route'
 Vue.use(VueRouter)
 
+const modules: Record<string, any> = import.meta.glob(
+  ['@/pages/**/route.ts', '!./modules/**/remaining.ts'],
+  {
+    eager: true
+  }
+)
+const routes = []
+
+Object.keys(modules).forEach((key) => {
+  routes.push(modules[key].default)
+})
 /** 运行监测 */
 export const monitor: RouteConfig = {
-  path: '/monitor',
-  name: 'monitor',
+  path: '/',
+  name: 'home',
   component: () => import('@/views/main/MainApp.vue'),
   redirect: monitorOverview.path,
-  children: [monitorOverview]
+  children: routes
 }
 
 export const emegc: RouteConfig = {
@@ -44,6 +61,8 @@ export const top: RouteConfig = {
 //     { path: '/', name: 'empty', redirect: monitor.path },
 //   ]
 // })
+
+console.log('routes = ', routes)
 export default new VueRouter({
   mode: 'history',
   base: import.meta.env.BASE_URL,
@@ -59,5 +78,5 @@ export default new VueRouter({
       }
     })
   },
-  routes: [monitor, emegc, top, { path: '/', name: 'empty', redirect: monitor.path }]
+  routes: [monitor, { path: '/', name: 'empty', redirect: monitor.path }]
 })
