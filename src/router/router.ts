@@ -1,12 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import type {
-  RouteConfig,
-  type Router,
-  createRouter,
-  type RouteRecordRaw,
-  type RouteComponent
-} from 'vue-router'
+import type { RouteConfig, type Router, type RouteRecordRaw, type RouteComponent } from 'vue-router'
 import monitorOverview from '@/pages/monitor-overview/route'
 import emegcSub1 from '@/pages/emegc-sub1/route'
 import top1 from '@/pages/top1/route'
@@ -22,7 +16,7 @@ const modules: Record<string, any> = import.meta.glob(
     eager: true
   }
 )
-const routes = []
+const routes: RouteRecordRaw[] = []
 
 Object.keys(modules).forEach((key) => {
   routes.push(modules[key].default)
@@ -52,18 +46,7 @@ export const top: RouteConfig = {
   children: [top1, top2, top3, top1Sub1, top1Sub2]
 }
 
-// const router = createRouter({
-//   history: createWebHashHistory(),
-//   routes: [
-//     monitor,
-//     emegc,
-//     top,
-//     { path: '/', name: 'empty', redirect: monitor.path },
-//   ]
-// })
-
-console.log('routes = ', routes)
-export default new VueRouter({
+const router: Router = new VueRouter({
   mode: 'history',
   base: import.meta.env.BASE_URL,
   scrollBehavior(to, from, savedPosition) {
@@ -71,7 +54,7 @@ export default new VueRouter({
       if (savedPosition) {
         resolve(savedPosition)
       } else {
-        if (from.meta.saveSrollTop) {
+        if (from.meta?.saveSrollTop) {
           const top: number = document.documentElement.scrollTop || document.body.scrollTop
           resolve({ x: 0, y: top })
         }
@@ -80,3 +63,5 @@ export default new VueRouter({
   },
   routes: [monitor, { path: '/', name: 'empty', redirect: monitor.path }]
 })
+
+export default router

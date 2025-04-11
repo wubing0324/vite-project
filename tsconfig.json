@@ -3,10 +3,19 @@
   "compilerOptions": {
     "module": "EsNext",
     "moduleResolution": "node",
+    "noImplicitThis": true,
+    "isolatedModules": true,
+    "strict": true,
+    "allowJs": true,
     "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true,
     "lib": ["ESNext", "DOM", "DOM.Iterable"],
-    "types": ["node", "vite-plugin-svg-icons/client", "unplugin-vue-define-options/macros-global"],
+    "types": [
+      "node",
+      "vue",
+      "vite-plugin-svg-icons/client",
+      "unplugin-vue-define-options/macros-global"
+    ],
     "paths": {
       "@/*": ["./src/*"]
     }

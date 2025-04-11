@@ -16,8 +16,8 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useRouter, useRoute } from 'vue-router/composables'
-import { monitor, emegc, top } from '@/router/router.ts'
-
+import { monitor } from '@/router/router'
+import type { RouteConfigExt } from '@/router/index.d'
 const router = useRouter()
 const currentRoute = useRoute()
 
@@ -26,7 +26,7 @@ const rootMenus = computed(() => {
   return allRoutes.filter((route) => route.meta?.root === true)
 })
 
-const handleMenuClick = (menu) => {
+const handleMenuClick = (menu: RouteConfigExt) => {
   router.push(menu.path)
 }
 </script>

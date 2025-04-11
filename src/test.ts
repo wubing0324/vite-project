@@ -1,16 +1,24 @@
-function loggingIdentity<T>(arg: T[]): T[] {
-    console.log(arg.length);
-    return arg;
+type UserType = {
+  name: string
+  age: string
+  phone: string
+}
+type UserInfo = {
+  sex: string
 }
 
-const x = loggingIdentity([1, 2, 3]);
-console.log(x);
-
-function getProperty<T, K extends keyof T>(obj: T, key: K): T[K] {
-	return obj[key];
+class User implements UserType, UserInfo {
+  name: string
+  age: string
+  phone: string
+  sex: string
+  constructor(name: string, age: string, phone: string, sex: string) {
+    this.name = name
+    this.age = age
+    this.phone = phone
+    this.sex = sex
+  }
 }
 
-const person = { name: "Alice", age: 30, address: "123 Main St" };
-const name1 = getProperty(person, "name"); // 类型为 string
-const age = getProperty(person, "age"); // 类型为 number
-console.log(person, name1, age)
+const user = new User('张三', '20', '12345678901', '男')
+console.log(user)
