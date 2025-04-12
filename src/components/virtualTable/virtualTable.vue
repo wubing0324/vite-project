@@ -1,15 +1,22 @@
 <template>
-  <div>
+  <div class="table-container">
     <div class="table-header">
       <div
         class="table-header-td"
+        :class="item.headerClass"
         :style="{ width: item.width ? item.width + 'px' : 'auto', flex: item.width ? 'none' : '1' }"
         v-for="item in columns"
         :key="item.prop">
-        {{ item.label }}-{{ item.width }}
+        {{ item.label }}
       </div>
     </div>
-    <virtual-scroll :columns="columns" :table-data="tableData" />
+    <virtual-scroll
+      :columns="columns"
+      :table-data="tableData"
+      height="200"
+      :item-height="40"
+      :item-class="itemClass"
+      :speed="speed" />
   </div>
 </template>
 
@@ -28,6 +35,14 @@ export default {
     tableData: {
       type: Array,
       default: () => []
+    },
+    itemClass: {
+      type: String,
+      default: ''
+    },
+    speed: {
+      type: Number,
+      default: 1
     }
   },
   data() {
@@ -36,6 +51,11 @@ export default {
 }
 </script>
 <style>
+.table-container {
+  width: 100%;
+  border: 1px solid red;
+  box-sizing: border-box;
+}
 .item {
   height: 48px;
   display: flex;
@@ -49,11 +69,9 @@ export default {
   justify-content: flex-start;
   font-size: 20px;
   width: 100%;
-  border: 1px solid #ddd;
   box-sizing: border-box;
 }
 .table-header-td {
-  border: 1px solid #ddd;
   height: 48px;
   display: flex;
   align-items: center;

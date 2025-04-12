@@ -1,5 +1,12 @@
 <template>
-  <div class="item-tr">
+  <div
+    class="item-tr"
+    :style="{
+      height: itemHeight + 'px',
+      backgroundColor: isHover ? '#d3e9f4' : index % 2 === 0 ? stripe : '#fff'
+    }"
+    @mouseenter="handleMouseEnter"
+    @mouseleave="handleMouseLeave">
     <div
       class="item-td"
       v-for="column in columns"
@@ -22,6 +29,14 @@
 export default {
   name: 'item-component',
   props: {
+    stripe: {
+      type: String,
+      default: () => '#f0f0f0'
+    },
+    itemHeight: {
+      type: Number,
+      default: 40
+    },
     columns: {
       type: Array,
       default: () => []
@@ -40,6 +55,19 @@ export default {
     description: {
       type: String,
       default: ''
+    },
+    onMouseEnter: {
+      type: Function,
+      default: () => {}
+    },
+    onMouseLeave: {
+      type: Function,
+      default: () => {}
+    }
+  },
+  data() {
+    return {
+      isHover: false
     }
   },
   components: {
@@ -70,17 +98,26 @@ export default {
         return val
       }
       return '-'
+    },
+    handleMouseEnter() {
+      this.isHover = true
+      this.onMouseEnter()
+    },
+    handleMouseLeave() {
+      this.isHover = false
+      this.onMouseLeave()
     }
   }
 }
 </script>
 <style>
 .item-tr {
-  height: 48px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 20px;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
 }
 .item-td {
   flex: 1;
@@ -90,7 +127,13 @@ export default {
   align-items: center;
   justify-content: center;
   text-align: center;
-  border: 1px solid #ddd;
   box-sizing: border-box;
+}
+.strip-line {
+  background-color: #9fcaee;
+}
+.item-tr-hover {
+  background-color: #f0f0f0;
+  cursor: pointer;
 }
 </style>

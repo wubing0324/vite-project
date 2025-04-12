@@ -1,5 +1,9 @@
 <template>
-  <div class="scroll-container" :style="{ height: `${height}px` }">
+  <div
+    class="scroll-container"
+    :style="{ height: `${height}px` }"
+    @mouseenter="handleMouseEnter"
+    @mouseleave="handleMouseLeave">
     <virtual-list
       ref="virtualList"
       class="list"
@@ -8,7 +12,8 @@
       :data-component="ListItem"
       :extra-props="{
         description: 'description111',
-        columns: columns
+        columns: columns,
+        itemHeight: itemHeight
       }"
       :estimate-size="50"
       @scroll="handleScroll" />
@@ -35,16 +40,24 @@ export default {
     tableData: {
       type: Array,
       default: () => []
+    },
+    itemHeight: {
+      type: Number,
+      default: () => 40
+    },
+    speed: {
+      type: Number,
+      default: 1
     }
   },
   data() {
     return {
       ListItem: ListItem,
       originalData: this.tableData,
-      scrollSpeed: 1, // 控制滚动速度
       animationFrameId: null, // 记录 requestAnimationFrame ID
       isResetting: false, // 是否正在重置滚动位置
-      lastScrollTop: 0 // 记录上次滚动位置
+      lastScrollTop: 0, // 记录上次滚动位置
+      isAutoScrolling: true // 是否自动滚动
     }
   },
   computed: {
@@ -54,7 +67,7 @@ export default {
     }
   },
   mounted() {
-    // this.startAutoScroll()
+    this.startAutoScroll()
   },
   methods: {
     handleScroll(event) {
@@ -63,17 +76,25 @@ export default {
       // 检测是否是向下滚动
       const isScrollingDown = list.scrollTop > this.lastScrollTop
       this.lastScrollTop = list.scrollTop
-      console.log(isScrollingDown, list.scrollTop, scrollHeight)
       if (isScrollingDown && list.scrollTop >= scrollHeight) {
         // 当滚动到第二组数据时，立即重置到第一组相同位置
         list.scrollTop = list.scrollTop % scrollHeight
       }
     },
+    handleMouseEnter() {
+      this.isAutoScrolling = false
+      this.stopAutoScroll()
+    },
+    handleMouseLeave() {
+      this.isAutoScrolling = true
+      this.startAutoScroll()
+    },
     startAutoScroll() {
+      if (!this.isAutoScrolling) return
       const list = this.$refs.virtualList.$el
       const smoothScroll = () => {
-        if (!list) return
-        list.scrollTop += this.scrollSpeed
+        if (!list || !this.isAutoScrolling) return
+        list.scrollTop += this.speed
         this.animationFrameId = requestAnimationFrame(smoothScroll)
       }
       this.animationFrameId = requestAnimationFrame(smoothScroll)
@@ -81,6 +102,7 @@ export default {
     stopAutoScroll() {
       if (this.animationFrameId) {
         cancelAnimationFrame(this.animationFrameId)
+        this.animationFrameId = null
       }
     }
   },

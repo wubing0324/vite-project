@@ -3,13 +3,17 @@
     <p class="base-title">我是monitor-overview</p>
     {{ year }}
     <!-- <virtual-scroll /> -->
-    <virtual-table :columns="columns" :table-data="tableData" />
+    <virtual-table
+      :columns="columns"
+      :table-data="tableData"
+      header-class="myHeaderClass"
+      :speed="0.5" />
   </div>
 </template>
 
 <script lang="jsx">
 import { useYearStore } from '@/stores/yearInfo'
-import virtualTable from './virtualTable.vue'
+import virtualTable from '@/components/virtualTable/virtualTable.vue'
 
 export default {
   name: 'StaticMap',
@@ -20,11 +24,21 @@ export default {
     return {
       columns: [
         {
+          label: '序号',
+          prop: 'id',
+          width: 100
+        },
+        {
           label: '状态',
           prop: 'status',
           width: 100,
           render: (h, { row }) => {
-            return <span class="status">{row.status}</span>
+            let classMap = {
+              'status-normal': row.status === '正常',
+              'status-warning': row.status === '警告',
+              'status-error': row.status === '错误'
+            }
+            return <span class={classMap}>{row.status}</span>
           }
         },
         {
@@ -33,7 +47,8 @@ export default {
         },
         {
           label: '时间',
-          prop: 'timestamp'
+          prop: 'timestamp',
+          itemClass: 'myItemClass'
         },
         {
           label: '描述',
@@ -84,6 +99,15 @@ export default {
   margin-bottom: 20px;
 }
 :deep(.status) {
+  color: red;
+}
+:deep(.status-normal) {
+  color: green;
+}
+:deep(.status-warning) {
+  color: rgb(145, 137, 45);
+}
+:deep(.status-error) {
   color: red;
 }
 </style>
