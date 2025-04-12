@@ -95,13 +95,13 @@ export default {
       const smoothScroll = () => {
         if (!list || !this.isAutoScrolling) return
         list.scrollTop += this.speed
-        this.animationFrameId = requestAnimationFrame(smoothScroll)
+        this.animationFrameId = setTimeout(smoothScroll, 20)
       }
-      this.animationFrameId = requestAnimationFrame(smoothScroll)
+      this.animationFrameId = setTimeout(smoothScroll, 20)
     },
     stopAutoScroll() {
       if (this.animationFrameId) {
-        cancelAnimationFrame(this.animationFrameId)
+        clearTimeout(this.animationFrameId)
         this.animationFrameId = null
       }
     }
